@@ -1,0 +1,133 @@
+@header_height: 160px;
+
+[ng-cloak], .ng-cloack {
+  display: none !important;
+}
+
+body {
+  padding-top: @header_height;
+}
+
+.navbar {
+  height: @header_height;
+
+  .navbar-brand {
+    font-size: 2em;
+  }
+}
+
+.profil {
+  position: relative;
+  padding: 0 230px 0 20px;
+  height: 202px;
+  margin: 10px;
+  background-color: lighten(lightgrey, 10%);
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  overflow: hidden;
+
+  h3 {
+    position: absolute;
+    top: 0;
+    right: 230px;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+  }
+
+  .tags {
+    position: absolute;
+    bottom: 20px;
+  }
+
+  .buttons {
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+
+    .btn {
+      width: 100px;
+    }
+  }
+}
+
+#basket {
+  margin: 10px 40px 0 0;
+  width: 220px;
+
+  li {
+    color: #EDEDED;
+    list-style: none;
+    position: relative;
+
+    hr {
+      margin: 6px 0;
+    }
+
+    .box {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 3px;
+    }
+
+    .box-1 {
+      left: calc(60px + (20px * 1));
+    }
+
+    .box-2 {
+      left: calc(60px + (20px * 2));
+    }
+
+    .box-3 {
+      left: calc(60px + (20px * 3));
+    }
+
+    .box-4 {
+      left: calc(60px + (20px * 4));
+    }
+
+    .box-5 {
+      left: calc(60px + (20px * 5));
+    }
+
+    .test {
+      background-color: cornflowerblue;
+    }
+
+    .back {
+      background-color: plum;
+    }
+
+    .database {
+      background-color: lightsalmon;
+    }
+
+    .front {
+      background-color: gold;
+    }
+
+    .hipster {
+      background-color: yellowgreen;
+    }
+
+    .box.ng-hide-add, .box.ng-hide-remove {
+      transition: all linear 0.5s;
+      display: block !important;
+    }
+
+    .box.ng-hide {
+      opacity: 0;
+    }
+  }
+}
+

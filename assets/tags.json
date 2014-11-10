@@ -1,0 +1,7 @@
+{
+  "test": ["Tdd", "Test", "Tests"],
+  "back": ["Java", "Jee", "Jersey", "Jsp", "Play!", "REST", "Scala", "Spring", "Spring Security", "Spring MVC", "Node", "NodeJS"],
+  "database": ["Hibernate", "Mongo"],
+  "front": ["Android", "Angular", "Backbone", "CoffeeScript", "CSS", "Ergonomie", "Graphisme", "Graphiste", "HTML5", "Illustrator", "Indesign", "Javascript", "Marionette", "Logos", "Photoshop", "UI", "UX", "Web", "Webdesign", "Websites"],
+  "hipster": ["Déploiement Continue", "Git", "Node", "NodeJS", "Mongo", "CoffeeScript", "Angular"]
+}

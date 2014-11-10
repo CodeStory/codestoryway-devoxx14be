@@ -1,0 +1,86 @@
+[
+  {
+    "email": "david@devoxx.io",
+    "prenom": "David",
+    "job": "Développeur Java/Web",
+    "ville": "Paris, France",
+    "description": "Bonjour, je suis développeur indépendant. Ma passion ? L'écriture de logiciels pointus mais simples.",
+    "tags": [
+      "Java", "Web", "Javascript", "Agile", "Formation", "Git", "Coaching", "Test"
+    ],
+    "photo": "david",
+    "price": 1000
+  },
+  {
+    "email": "mathilde@devoxx.io",
+    "prenom": "Mathilde",
+    "job": "Ingénieur Mobile / Java",
+    "ville": "Paris, France",
+    "description": "Freelance depuis plus de 3 ans, j'interviens sur des projets en tant que développeur / lead technique / scrum master.",
+    "tags": [
+      "Java", "Jee", "Spring", "Hibernate", "Jsp"
+    ],
+    "photo": "mathilde",
+    "price": 700
+  },
+  {
+    "email": "jeanlaurent@devoxx.io",
+    "prenom": "Jean-Laurent",
+    "job": "Blogger du dimanche",
+    "ville": "Houilles, France",
+    "description": "Freelance depuis plus de 1 an.",
+    "tags": [
+      "Java", "Test", "CoffeeScript", "Node", "Javascript"
+    ],
+    "photo": "jl",
+    "price": 1000
+  },
+  {
+    "email": "eric@devoxx.io",
+    "prenom": "Eric",
+    "job": "Développeur Java Agile",
+    "ville": "Houilles, France",
+    "description": "Je suis professionnel du développement depuis 1998, principalement dans le monde Java. Avec une forte connotation agile.",
+    "tags": [
+      "Java", "Scrum", "Tdd", "Xp", "Mongo"
+    ],
+    "photo": "eric",
+    "price": 700
+  },
+  {
+    "email": "romain@devoxx.io",
+    "prenom": "Romain",
+    "job": "Développeur Java / Web / Agile",
+    "ville": "Paris, France",
+    "description": "J'ai une grande passion, l'informatique. Mais j'ai plusieurs amours, oui, c'est possible ! Je vais vous raconter (un peu) ma vie professionnelle....",
+    "tags": [
+      "Java", "Web", "Agile", "Javascript", "Scala", "NodeJS", "REST", "HTML5", "Android", "Play!", "TDD", "Backbone", "Marionette", "Angular", "Git", "Intellij IDEA", "Jersey", "Spring", "Spring MVC", "Spring Security"
+    ],
+    "photo": "romain",
+    "price": 600
+  },
+  {
+    "email": "lilians@devoxx.io",
+    "prenom": "Lilians",
+    "job": "Développeur Java",
+    "ville": "Viroflay, France",
+    "description": "Développeur Java expérimenté, j'améliore le confort des autres en mettant en place des outils qui leur permettent de gagner du temps.",
+    "tags": [
+      "Java", "JEE", "Spring", "Tests", "Qualité", "Simplicité", "Maven", "Industrialisation", "Formation", "Déploiement Continue", "Intégration Continue"
+    ],
+    "photo": "lilians",
+    "price": 670
+  },
+  {
+    "email": "loïc@devoxx.io",
+    "prenom": "Loïc",
+    "job": "Graphiste - Art Direction & Webdesign",
+    "ville": "Paris, France",
+    "description": "Graphiste free-lance professionnel basé à Paris et référencé au registre des travailleurs indépendants.",
+    "tags": [
+      "UI", "UX", "Webdesign", "Ergonomie", "Graphisme", "Logos", "Websites", "CSS", "Emails", "Illustrator", "Photoshop", "Indesign ", "Graphiste"
+    ],
+    "photo": "loic",
+    "price": 430
+  }
+]
