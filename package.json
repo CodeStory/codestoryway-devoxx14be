@@ -1,0 +1,26 @@
+{
+    "name": "devoxx-codestory-lab",
+    "version": "1.0.0",
+    "description": "Node dependencies for devoxx-codestory-lab",
+    "main": "index.js",
+    "author": "Jean-Laurent de Morlhon && David Gageot",
+    "license": "MIT",
+    "devDependencies": {
+        "chai": "^1.9.1",
+        "coffee-script": "^1.7.1",
+        "karma": "^0.12.16",
+        "karma-coffee-preprocessor": "^0.2.1",
+        "karma-jasmine": "^0.2.2",
+        "karma-jsmockito-jshamcrest": "0.0.6",
+        "karma-phantomjs-launcher": "^0.1.4",
+        "jsmockito": "^1.0.5",
+        "protractor": "^0.20.1"
+    },
+    "scripts": {
+        "test": "node_modules/mocha/bin/karma start karma.conf.coffee"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/CodeStory/devoxx-quickstart.git"
+    }
+}

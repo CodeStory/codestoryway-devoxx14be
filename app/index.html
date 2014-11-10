@@ -1,0 +1,79 @@
+---
+layout: default
+title: Recruteur.io
+styles: [/webjars/bootstrap/3.3.0/css/bootstrap.css, style.less]
+ng-app: devoxx
+---
+
+<div ng-controller="BasketController as basket" ng-cloak>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Recruteur.io</a>
+        </div>
+        <div class="navbar-right">
+            <div id="basket" ng-if="basket.basket.sum > 0">
+                <ul>
+                    <li>
+                        Front
+                        <score category="front" value="basket.basket.front"></score>
+                    </li>
+                    <li>
+                        Back
+                        <score category="back" value="basket.basket.back"></score>
+                    </li>
+                    <li>
+                        Database
+                        <score category="database" value="basket.basket.database"></score>
+                    </li>
+                    <li>
+                        Test
+                        <score category="test" value="basket.basket.test"></score>
+                    </li>
+                    <li>
+                        Hipster
+                        <score category="hipster" value="basket.basket.hipster"></score>
+                    </li>
+                    <li>
+                        <hr/>
+                    </li>
+                    <li class="text-right price">
+                        {{basket.basket.sum}}€ / jour
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        [[#each developers]]
+        <div class="row profil developer" id="[[prenom]]">
+            <h1>[[prenom]]</h1>
+
+            <h3>Tarif [[price]]€ / jour</h3>
+
+            <p>[[job]] - [[ville]]</p>
+
+            <p>[[description]]</p>
+
+            <div class="tags">
+                [[#each tags]]
+                <span class="label label-danger">[[.]]</span>
+                [[/each]]
+            </div>
+
+            <img src="images/[[photo]].png">
+
+            <div class="buttons">
+                <a ng-hide="basket.shouldShowRemoveButton('[[email]]')" class="btn btn-success add" href=""
+                   ng-click="basket.add('[[email]]')">Chasser !</a>
+                <a ng-show="basket.shouldShowRemoveButton('[[email]]')" class="btn btn-danger remove" href=""
+                   ng-click="basket.remove('[[email]]')">Virer !</a>
+            </div>
+        </div>
+        [[/each]]
+    </div>
+</div>
+
+<script src="/webjars/angularjs/1.3.0/angular.min.js"></script>
+<script src="/webjars/angularjs/1.3.0/angular-animate.min.js"></script>
+<script src="app.coffee"></script>
