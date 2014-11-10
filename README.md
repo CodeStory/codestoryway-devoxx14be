@@ -138,18 +138,24 @@ If everything goes according to the plan, just about now, you'll feel less incli
 Change your server to the following, we add a route to '/' which defines a conference variable to be used in your template in a Java8-lambdaish way.
 
 ```java
+import net.codestory.http.templating.*;
+
 public class Server {
   public static void main(String[] args) {
-    new WebServer(routes -> routes.get("/", () -> Model.of("conference", "Devoxx"))).start();
+    new WebServer(routes -> routes
+      .get("/", () -> Model.of("conference", "Devoxx")))
+      .start();
   }
 }
 ```
 
 Change your index.html to :
+
 ```Html
 ---
 layout: default
-title: hello mix-it
+title: hello Devoxx
+conference: Devoxx
 ---
 
 <h1>Hello [[conference]]!</h1>
@@ -164,9 +170,13 @@ Woot! Some Handlebars and some Java 8 lambda at the same time. Everything is ren
 In the app, Jean-Clause wants us to display a bunch of developers, so we need a way to iterate through a list of developers:
 
 ```java
+import net.codestory.http.templating.*;
+
 public class Server {
   public static void main(String[] args) {
-    new WebServer(routes -> routes.get("/", () -> Model.of("developers", Arrays.asList("David", "Jean-Laurent")))).start();
+    new WebServer(routes -> routes
+      .get("/", () -> Model.of("developers", Arrays.asList("David", "Jean-Laurent"))))
+      .start();
   }
 }
 ```
@@ -187,6 +197,9 @@ But developers aren't defined only by their names, (we tend to say the define th
 public class Developer {
   String name;
   int price;
+  
+  public Developer() {
+  }
 
   public Developer(String name, int price) {
     this.name = name;
@@ -196,7 +209,11 @@ public class Developer {
 
 public class Server {
   public static void main(String[] args) {
-    new WebServer(routes -> routes.get("/", () -> Model.of("developers", Arrays.asList(new Developer("David", 1000), new Developer("Jean-Laurent", 1000))))).start();
+    new WebServer(routes -> routes
+      .get("/", () -> Model.of("developers", Arrays.asList(
+        new Developer("David", 1000),
+        new Developer("Jean-Laurent", 1000)))))
+      .start();
   }
 }
 ```
@@ -204,9 +221,11 @@ public class Server {
 Then you can display developer's fields.
 
 ```
+<ul>
 [[#each developers]]
-  [[name]] [[price]]
+  <li class="developer">[[name]] [[price]]</li>
 [[/each]]
+</ul>
 ```
 
 You can do many more things in Handlebars, but keep in mind it's call logic less for a reason, you can see more at: http://handlebarsjs.com/.
@@ -224,7 +243,10 @@ public class Server {
   public static class ServerConfiguration implements Configuration {
     @Override
     public void configure(Routes routes) {
-      routes.get("/", () -> Model.of("developers", Arrays.asList(new Developer("David", 1000), new Developer("Jean-Laurent", 1000))));
+      routes.get("/", () -> Model.of("developers", Arrays.asList(
+        new Developer("David", 1000), 
+        new Developer("Jean-Laurent", 1000)
+      )));
     }
   }
 }
@@ -240,6 +262,12 @@ We do everything for you, with our hand-cooked selenium wrapper called Simplelen
   <groupId>net.code-story</groupId>
   <artifactId>simplelenium</artifactId>
   <version>1.25</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>4.11</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -271,7 +299,7 @@ public class BasketSeleniumTest extends SeleniumTest {
 
 Don't need to install Chrome, Selenium, PhantomJS or what. It just works.
 
-To avoid port conflicts (two server asking for the same port) with test running in parallel, fluent-http gives you a `startOnRandomPort()` method which makes sure to avoid conflicts.
+To avoid port conflicts (two server asking for the same port) with tests running in parallel, fluent-http gives you a `startOnRandomPort()` method which makes sure conflicts are avoided.
 
 ## Simple REST Service
 
@@ -332,7 +360,10 @@ import net.codestory.http.templating.Model;
 public class IndexResource {
   @Get("/")
   public Model index() {
-     return Model.of("developers", Arrays.asList(new Developer("David", 1000), new Developer("Jean-Laurent", 1000)));
+     return Model.of("developers", Arrays.asList(
+       new Developer("David", 1000),
+       new Developer("Jean-Laurent", 1000)
+     ));
   }
 }
 ```
@@ -358,6 +389,7 @@ You should concentrate on testing on http input/output. While mocking/stubbing t
 We use the RestAssured library which offers a fluent API to write tests. Testing the http interaction layer is quite tedious to write.
 
 Add to your pom the dependency:
+
 ```xml
 <dependency>
   <groupId>com.jayway.restassured</groupId>
@@ -375,6 +407,8 @@ Less configuration, lighting speed, you saved yourself at many hours writing xml
 Here's a typical skeleton for a REST test:
 
 ```java
+import static com.jayway.restassured.RestAssured.*;
+
 public class BasketRestTest {
   WebServer webServer = new WebServer(new ServerConfiguration()).startOnRandomPort();
 
@@ -389,7 +423,7 @@ public class BasketRestTest {
 
 ## AngularJs
 
-To add angularjs the java-way you can use Webjars. Webjars are a collection of javascript libraries embedded in a jar, properly registered on a maven central repository. (Don''t tell the javascript fans about this. They'd have a ceasure)
+To add angularjs the java-way you can use Webjars. Webjars are a collection of javascript libraries packaged in a jar, properly registered on a maven central repository. (Don''t tell the javascript fans about this. They'd have a ceasure)
 
 ```xml
 <dependency>
@@ -402,11 +436,11 @@ To add angularjs the java-way you can use Webjars. Webjars are a collection of j
 You'll use the `/webjars/angularjs/1.3.0/angular.min.js` path in a `<script>` tag.
 You can do the same thing with all your front-end dependencies: javascript libraries, css styles, fonts, icons etc...
 
-If you think embedding a javascript library into a zip file, renamed to .jar is kind of completely mad, you can use [bower](http://bower.io/). It's a bit more hype, but you have to move the file by hand from the bower directory to your `app` directory.
+If you think embedding a javascript library into a zip file, renamed to .jar, is kind of completely mad, you can use [bower](http://bower.io/). It's a bit more hype, but you have to move the files by hand from the bower directory to your `app` directory.
 
 ### Use coffeescript
 
-You can write your angular controllers in coffeescript using a class syntax. This enable to properly and easily isolate the scope variables. For instance :
+You can write your angular controllers in coffeescript using a class syntax. This enable to properly and easily isolate the scope variables. For instance, `app/main.coffee`:
 
 ```coffee
 angular.module 'devoxx', []
@@ -421,11 +455,14 @@ angular.module 'devoxx', []
         @basket = data
 ```
 
-To make it work you can add the ng-app tag by hand, or put it in the YAML front matter.
-don't forget to add the angular lib script tag.
+**Be Careful, Coffee is VERY PICKY about indentations**.
+
+To make it work you can add the `ng-app` attribute by hand in your html, or put it in the YAML front matter.
+Don't forget to add the angular lib `<script>` tag AND the one for the controller too:
 
 ```yaml
 ---
+layout: default
 title: Hello Devoxx
 ng-app: devoxx
 ---
@@ -435,7 +472,12 @@ ng-app: devoxx
 </div>
 
 <script src="/webjars/angularjs/1.3.0/angular.min.js"></script>
+<script src="/main.js"></script>
 ```
+
+Notice how you write a `main.coffee` file but reference a `main.js` file in the html? Fluent-http let
+you choose if you prefer to write coffee or javascript. If you prefer coffee, then scripts are compiled
+server-side transparently on the fly.
 
 # Unit, integration, javascript & ui Testing!
 
@@ -445,7 +487,7 @@ Nothing, *that* modern in here.
 
 We use the usual suspects of the industry here, `AssertJ` (fluent assertions) & `Mockito` (mocking).
 
-You can add those two libraries like this in your pom:
+You can add those two libraries in your pom:
 
 ```xml
 <dependency>
@@ -463,7 +505,7 @@ You can add those two libraries like this in your pom:
 </dependency>
 ```
 
-Let's try writing the resources we would need to do our app for Jean-Claude.
+Let's write the resources we need to do our app for Jean-Claude.
 
 We need some kind of developer domain object:
 
@@ -511,9 +553,12 @@ We need some kind of developers list:
 ]
 ```
 
-So let's write our own version of an "Oracle Database":
+So let's write our own in-memory version of an "Oracle Database":
 
 ```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.Resources;
+
 public class Developers {
   public Developer find(String email) {
     return Stream.of(findAll()).filter(dev -> email.equals(dev.email)).findFirst().orElse(null);
@@ -529,8 +574,20 @@ public class Developers {
 }
 ```
 
+The `Resources` class comes from guava. Be careful, fluent-http also has a `Resources` class but
+it not the one we want to use here. If you're a Java developer and you don't know Guava,
+you've been coding from inside a cave and you maybe you should take a look at it right now.
+
+```java
+<dependency>
+  <groupId>com.google.guava</groupId>
+  <artifactId>guava</artifactId>
+  <version>18.0</version>
+</dependency>
+```
+
 Here's a corresponding tests:
-Yes it's a test based on data, no it's not perfect, yes it's a good example of unit testing.
+Yes it's a test based on data. No it's not perfect. Yes it's a good example of unit testing.
 
 ```java
 import org.junit.Test;
@@ -549,33 +606,18 @@ public class DevelopersTest {
 
 ## Unit testing angular controller with Karma
 
-We can unit test angular controller. We are going to put a foot in the javascript world, using Karma & Jasmine.
+We'd like to unit test our angular controller. E2e tests are too slow to test everything.
+Rest tests don't test the javascript. So we are going to put a foot in the javascript world,
+using **Karma** and **Jasmine**.
 
-You need to have the angular files available in the path. If you don't use Webjars, it's a good time to type in a `bower install` in your console.
+We'll use `angular-mocks` (a default testing library for angular) in conjunction with `chai.js` which gives us nice fluent assertions. The testing library used here is `jasmine`. The syntax is `coffeescript`.
 
-Use the karma configuration file you'll find on the usb key.
-If you don't use Chrome on your laptop, you can open a configuration file and replace `chrome` by `safari`, `firefox`... or `ie` !
+Because we live in the java/maven world, out project need a little configuration first. Once it's done
+everybody on the team will be happy not to install node, karma, jasmine and al. manually.
 
-Testing are launched using `karma start karma.conf.js`
-(If karma is not in the path, you can find them in `node_modules/karma/bin/karma`).
+## Node configuration
 
-We use `angular-mocks` (a default testing library for angular) in conjunction with `chai.js` which gives us nice fluent assertions. The testing library used here is `jasmine`. The syntax is `coffeescript`.
-
-```coffee
-should = chai.should()
-
-describe 'Basket tests', ->
-  beforeEach ->
-    module 'devoxx'
-    inject ($controller) ->
-      @controller = $controller 'BasketController'
-
-  it 'should start with an empty basket', ->
-    @controller.emails.should.eql []
-    @controller.basket.should.eql {}
-```
-
-this is a `package.json` file, it's the `pom.xml` in the node world. It enables us to define all the libraries and dependencies we need for karma to launch properly.
+This is a `package.json` file, it's the `pom.xml` in the node world. It enables us to define all the libraries and dependencies we need for karma to launch properly. Create it at the root of your project.
 
 ```json
 {
@@ -605,12 +647,11 @@ this is a `package.json` file, it's the `pom.xml` in the node world. It enables 
     }
 }
 ```
-maven frontend plugin
-=======
 
-Close your eyes, welcome to the wonderful world of maven xml and plugins :
-the maven frontend plugin is able to do dirty stuff you don't want to have to do by hand, especially if you haven't done node stuff recently. So the price to pay is the following horribles 40 lines. But trust us, it's a life saver, it automates reliably the process of launching javascript tests trough karma.
+## maven front-end plugin
 
+Close your eyes, welcome to the wonderful world of maven xml and plugins:
+The maven front-end plugin is able to do dirty stuff you don't want to have to do by hand, especially if you haven't done node stuff recently. So the price to pay is the following horribles 40 lines. But trust us, it's a life saver, it automates reliably the process of launching javascript tests in the java world.
 
 ```xml
 <profiles>
@@ -637,7 +678,7 @@ the maven frontend plugin is able to do dirty stuff you don't want to have to do
           </execution>
         </executions>
         <configuration>
-          <mainClass>misc.ExtractWebjars</mainClass>
+          <mainClass>net.codestory.http.misc.ExtractWebjars</mainClass>
         </configuration>
       </plugin>
       <plugin>
@@ -687,9 +728,84 @@ the maven frontend plugin is able to do dirty stuff you don't want to have to do
 </profiles>
 ```
 
-### http service
+To finish the configuration, add these too files in `src/test`:
 
-Here you can write a more complicated test, to handle some tricky situation where your angular controller is making an http call (wich occurs... very often).
+src/test/karma.conf.js:
+
+```javascript
+module.exports = function (config) {
+    return config.set({
+        frameworks: ['jasmine'],
+        basePath: '../..',
+        files: [
+            'node_modules/chai/chai.js',
+
+            'target/webjars/jquery/jquery.min.js',
+            'target/webjars/angularjs/angular.min.js',
+            'target/webjars/angularjs/angular-animate.min.js',
+            'target/webjars/angularjs/angular-mocks.js',
+
+            'app/app.coffee',
+
+            'src/test/karma/**/*.coffee'
+        ],
+        reporters: ['dots'],
+        port: 9876,
+        urlRoot: '/karma/',
+        browsers: ['PhantomJS'],
+        captureTimeout: 60000,
+        logLevel: config.LOG_INFO,
+        preprocessors: {
+            '**/*.coffee': ['coffee']
+        },
+        coffeePreprocessor: {
+            options: {
+                sourceMap: true
+            }
+        }
+    });
+};
+```
+
+and karma.conf.ci.js:
+
+```javascript
+var baseConfig = require('./karma.conf.js');
+
+module.exports = function (config) {
+    baseConfig(config);
+    return config.set({
+        singleRun: true,
+        autoWatch: false
+    });
+};```
+
+## A test at last
+
+Everything is configured! Le't write our first test in `src/test/karma/basketControllerTest.coffee`:
+
+```coffee
+should = chai.should()
+
+describe 'Basket tests', ->
+  beforeEach ->
+    module 'devoxx'
+    inject ($controller) ->
+      @controller = $controller 'BasketController'
+
+  it 'should start with an empty basket', ->
+    @controller.emails.should.eql []
+    @controller.basket.should.eql {}
+```
+
+Because, we code controllers in coffee, we write tests in coffee.
+
+To run the tests, your can either trigger a full build with `mvn clean install` or run only
+the karma tests with `./node_modules/karma/bin/karma start src/test/karma.conf.js`
+
+### Testing the http calls
+
+Here you can write a more complicated test, to handle some tricky situation where your angular controller is making an http call (which occurs... very often).
 
 ```coffee
 should = chai.should()
@@ -718,9 +834,7 @@ describe 'Basket tests', ->
 
 ## Deuglifying the page.
 
-You can do your own css, but you can also use css webjars like Twitter Bootstrap to ease the pain of spending two hours having 3 divs side by side.
-
-To add bootstrap you can use Webjars. You add to your pom:
+You can write your own css, but you can also use Twitter Bootstrap to ease the pain of spending two hours having 3 divs side by side. To add bootstrap you can use Webjars. You add to your pom:
 
 ```xml
 <dependency>
@@ -741,6 +855,6 @@ styles: ['/webjars/bootstrap/3.1.1/css/bootstrap.css']
 
 Now you should have everything you need to finish the app.
 
-What are you waiting ?? Jean-Claude is not a patient man and as during estimation phase you said the project could take between 3 hours to two days, Jean-Claude thinks you can make it in 2 hours, or your job will be outsourced in a far away countries, where developers are cheap.
+What are you waiting?? Jean-Claude is not a patient man and as during estimation phase you said the project could take between 3 hours to two days, Jean-Claude thinks you can make it in 2 hours, or your job will be outsourced in a far away country, where developers are cheap.
 
 -- David & Jean-Laurent
