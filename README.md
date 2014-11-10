@@ -9,7 +9,7 @@ Come participate to this 3 hours Hand's On lab. Our target: teach you to program
 
 With the help and live code demos of David Gageot & Jean-Laurent de Morlhon.
 
-On the menu: Java 8, some AngularJs, a taste of CoffeeScript, Pair Programming, UI tests, hotkeys you didn't knew existed, plugins from outer space and an ultra fast development cycle. Yes we're still talking about Java.
+The menu: Java 8, some AngularJs, a taste of CoffeeScript, Pair Programming, UI tests, hotkeys you didn't knew existed, plugins from outer space and an ultra fast development cycle. Yes, we're still talking about Java.
 
 Monday, at work, you won't see your java project the same way.
 
@@ -27,20 +27,20 @@ To attend this workshop in the best possible conditions:
 
 # Recruteur.io
 
-You friend Jean-Claude from a famous second-zone commerce school in the countryside has a tremendous business idea:
+You friend Jean-Claude from a famous second-zone business school in the countryside has a tremendous idea:
 
-We're going to make a website to find programmers, and make a ton of money placing them in businesses across the world to help write web projects.
+We're going to make a website to find programmers, and make a ton of money *selling* them to customers across the world to help write web applications.
 
 Jean-Claude has heard that we probably need different skill sets to build a great team. You need to mix these skills.
 
-In 2014, Jean-Claude has decided you need 4 different skills: `Front`, `Back`, `Database`, `Test`. And to sounds more appealing and also because it sells well, he added a fifth skill named `Hipster`.
+In 2014, Jean-Claude has decided you need 4 different skills: `Front`, `Back`, `Database`, `Test`. And to sound more appealing and also because it sells well, he added a fifth skill named `Hipster`.
 
 The website could look like this:
 
 ![Screenshot](./screenshot.png)
 
 Martine from HR has already bought the domain name on godady, you're free to go.
-We have installed FrontPage and IIS on your laptop, you've got 2 hours!
+We have installed FrontPage and IIS on your laptop, you've got 3 hours!
 
 # Let's write some code
 
@@ -73,9 +73,9 @@ We have installed FrontPage and IIS on your laptop, you've got 2 hours!
 </project>
 ```
 
-So, yes, we're going to use java 8, we have waited for it for too long, not to use it right away. Fasten your seat belts.
+So, yes, we're going to use Java 8. We have waited for it for too long, not to use it right away. Fasten your seat belts.
 
-1. Then you create, like a grownup, the sources & tests directories (yeah, we got tests too, I know so modern ...).
+1. Then you create, like a grownup, the source & test directories (yeah, we got tests too, I know so modern...).
 
 ```bash
 mkdir -p src/{main,test}/java
@@ -83,7 +83,7 @@ mkdir -p src/{main,test}/java
 
 (btw you can create them with your mouse, but it's less hype and stylish. Modern web remember?)
 
-1. We are here to make a webapp. But we are going to be classical for a change and start with a good old 'Hello World'.
+1. We are here to make a web-app. But we are going to be classical for a change and start with a good old 'Hello World'.
 
   You should create an `index.html` at the root of an `app` directory beside your `pom.xml` like this:
 
@@ -105,10 +105,10 @@ title: Hello Devoxx
 <p>I can serve a web page in a java app in less than 2 minutes... Yes, I can!</p>
 ```
 
-Before you ask, the header in between dashes is called Yaml Front Matter. You can enter a bunch of information using Yaml syntax there and everything after the last `---` is going to be plain old HTML. You can do crazy stuff in here, if you're nice you'll see a glimpse of it, but we won't go into more details there, but trust us, it's quite convenient.
+Before you ask, the header in between dashes is called Yaml Front Matter. You can enter a bunch of information using Yaml syntax there and everything after the last `---` is going to be plain old HTML. You can do crazy stuff in here, if you're nice you'll see a glimpse of it, but we won't go into more details there. But trust us, it's quite convenient.
 
-In fluent-http, everything you put in the `app` directory is served at the root of your webapp.
-If you put some html, it will be serve, as-is. Same for js files, images etc...
+In fluent-http, everything you put in the `app` directory is served at the root of your web-app.
+If you put an html file, it will be serve, as-is. Same for js files, images etc...
 
 If you put some Less files, they will be compiled to css and served (with a cache don't worry), the same applies to Coffeescript compiled to Javascript, Markdown to Html and a few others.
 
@@ -127,7 +127,7 @@ public class Server {
 ```
 
 1. Then you execute the `Server` class, open a browser and aim it towards http://localhost:8080
-If everything goes according to plan, just about now, you'll feel less inclined to use weblo or tomcat, monday at work. I started a java program that serves content in 1 line of code and 5 minutes...
+If everything goes according to the plan, just about now, you'll feel less inclined to use weblo or tomcat, monday at work. I started a java program that serves content in 1 line of code and 5 minutes...
 
 (If you're on the fancy side of stuff, and that you change your working dir, I know *crazy*, but some of you do it, you'll have to point your working dir to the root of your app. It's usually done in the working dir input field in the run class dialog of your IDE)
 
@@ -155,13 +155,13 @@ title: hello mix-it
 <h1>Hello [[conference]]!</h1>
 ```
 
-The templating language used here is [Handlebars](http://handlebarsjs.com/). You can use every handlebar instructions but within `[[` and `]]` instead the usual `{{` and `}}`. As you may know, we are going to use some angular code in a few minutes, so we changed the way handlebars detect it's tag so it doesn't clash with angular. You can then use a mix of server side and client side content.
+The templating language used here is [Handlebars](http://handlebarsjs.com/). You can use every handlebar instruction but within `[[` and `]]` instead the usual `{{` and `}}`. As you may know, we are going to use some angularJs in a few minutes, so we changed the way handlebars detects it's tag so that it doesn't clash with angularJs. You can then use a mix of server side and client side content.
 
-Woot! Some Handlebars and some java 8 lambda at the same time. Everything is rendered server side. Consider it the jsp of 2014.
+Woot! Some Handlebars and some Java 8 lambda at the same time. Everything is rendered server side. Consider it the jsp of 2014.
 
 ### Handlebars supports Loops
 
-In the app, Jean-Clause wants us to display a bunch of developers, so we need a way to iterate around a list of developers :
+In the app, Jean-Clause wants us to display a bunch of developers, so we need a way to iterate through a list of developers:
 
 ```java
 public class Server {
@@ -171,7 +171,7 @@ public class Server {
 }
 ```
 
-Display the loop content like this:
+Display the content like this:
 
 ```html
 [[#each developers]]
@@ -181,8 +181,7 @@ Display the loop content like this:
 
 ### You can use Java Beans, Pojos, Java Objects, you name it.
 
-But developers aren't define only by their names, (we tend to say the define themselves by the number of bugs they produces but that's another story).
-Developers needs properties let's start simply with name and price.
+But developers aren't defined only by their names, (we tend to say the define themselves by the number of bugs they produces but that's another story). Developers needs properties let's start simply with name and price:
 
 ```java
 public class Developer {
@@ -202,7 +201,7 @@ public class Server {
 }
 ```
 
-Then you can display each developer's fields.
+Then you can display developer's fields.
 
 ```
 [[#each developers]]
@@ -234,7 +233,7 @@ public class Server {
 Let's write an end to end test, also called sometimes acceptance test, UI test or **test-which-brake-too-often-but-are-really-really-life-saver(tm)**.
 
 So take an hour, setup selenium, install all drivers. Just kidding!
-We do everything for you, with our hand-cooked selenium wrapper called SimpleLenium
+We do everything for you, with our hand-cooked selenium wrapper called Simplelenium
 
 ```xml
 <dependency>
@@ -276,7 +275,7 @@ To avoid port conflicts (two server asking for the same port) with test running 
 
 ## Simple REST Service
 
-Routes can be written with Java 8 Lambdas but for more complex routes, it's best to extract the route's code into a `Resource` class. And because fluent-http is built from the ground up to be a web container, every time it sees a Java Bean or Pojo in a resource method signature it exposes it as `json` by default.
+Routes can be written with Java 8 Lambdas. But for more complex routes, it's best to extract the route's code into a `Resource` class. And because fluent-http is built from the ground up to be a web container, every time it sees a Java Bean or Pojo in a resource method signature it exposes it as `json` by default.
 
 For instance if your route needs to server a `Basket``, it could be defined like this :
 
@@ -358,7 +357,7 @@ You should concentrate on testing on http input/output. While mocking/stubbing t
 
 We use the RestAssured library which offers a fluent API to write tests. Testing the http interaction layer is quite tedious to write.
 
-Add to your pom the dependency :
+Add to your pom the dependency:
 ```xml
 <dependency>
   <groupId>com.jayway.restassured</groupId>
@@ -464,7 +463,7 @@ You can add those two libraries like this in your pom:
 </dependency>
 ```
 
-Let's try starting to write the resources we would need to do our app for Jean-Claude.
+Let's try writing the resources we would need to do our app for Jean-Claude.
 
 We need some kind of developer domain object:
 
